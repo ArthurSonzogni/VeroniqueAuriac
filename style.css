@@ -185,11 +185,92 @@ section, footer {
     animation-range: entry 0% cover 30%;
 }
 
+/* Hamburger menu styles */
+.hamburger {
+    display: none; /* Hidden by default on desktop */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001; /* Above nav links */
+}
+
+.hamburger-icon {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.hamburger-icon::before,
+.hamburger-icon::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    position: absolute;
+    transition: transform 0.3s, top 0.3s;
+}
+
+.hamburger-icon::before {
+    top: -8px;
+}
+
+.hamburger-icon::after {
+    top: 8px;
+}
+
+/* Animation for hamburger to cross */
+.hamburger.active .hamburger-icon {
+    background-color: transparent;
+}
+
+.hamburger.active .hamburger-icon::before {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active .hamburger-icon::after {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+
 /* Pour les écrans plus petits */
 @media (max-width: 768px) {
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 1rem;
+    }
+
+    .hamburger {
+        display: block; /* Show hamburger on mobile */
+    }
+
+    .nav-links {
+        display: none; /* Hide nav links by default on mobile */
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 100%; /* Position below the nav bar */
+        left: 0;
+        background-color: var(--primary-color);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 1rem 0;
+    }
+
+    .nav-links.active {
+        display: flex; /* Show nav links when active */
+    }
+
     nav a {
         display: block;
-        margin: 5px 0;
+        margin: 10px 0;
+        padding: 10px 15px;
+        text-align: center;
     }
 
     .profile-photo {
