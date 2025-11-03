@@ -72,6 +72,7 @@ nav a:hover {
 
 main {
     padding: 1rem;
+    perspective: 1000px;
 }
 
 section {
@@ -84,11 +85,7 @@ section {
     overflow: hidden; /* Contient les flottants */
     transition: transform 0.3s, box-shadow 0.3s;
     position: relative;
-}
-
-section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    transform-origin: bottom;
 }
 
 section h2 {
@@ -107,28 +104,6 @@ section h2 {
     object-fit: cover;
     border: 5px solid var(--secondary-color);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-#interventions ul {
-    list-style-type: none;
-    padding: 0;
-    columns: 2;
-    -webkit-columns: 2;
-    -moz-columns: 2;
-}
-
-#interventions li {
-    background-color: var(--secondary-color);
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    border-left: 5px solid var(--primary-color);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-#interventions li:hover {
-    transform: translateX(5px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
 .job, .education {
@@ -172,98 +147,23 @@ footer {
 /* Animation d'entrée au scroll */
 @keyframes slide-in {
     from {
-        transform: translateY(200px);
+        transform: translateY(100px) rotateX(+30deg);
     }
-    to {
-        transform: translateY(0);
+to {
+        transform: translateY(0) rotateX(0);
     }
 }
 
-section, footer {
+section {
     animation: slide-in linear forwards;
     animation-timeline: view();
-    animation-range: entry 0% cover 30%;
+    animation-range: entry 0% cover 20%;
 }
-
-/* Hamburger menu styles */
-.hamburger {
-    display: none; /* Hidden by default on desktop */
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 1001; /* Above nav links */
-}
-
-.hamburger-icon {
-    display: block;
-    width: 30px;
-    height: 3px;
-    background-color: white;
-    position: relative;
-    transition: background-color 0.3s;
-}
-
-.hamburger-icon::before,
-.hamburger-icon::after {
-    content: '';
-    display: block;
-    width: 30px;
-    height: 3px;
-    background-color: white;
-    position: absolute;
-    transition: transform 0.3s, top 0.3s;
-}
-
-.hamburger-icon::before {
-    top: -8px;
-}
-
-.hamburger-icon::after {
-    top: 8px;
-}
-
-/* Animation for hamburger to cross */
-.hamburger.active .hamburger-icon {
-    background-color: transparent;
-}
-
-.hamburger.active .hamburger-icon::before {
-    transform: translateY(8px) rotate(45deg);
-}
-
-.hamburger.active .hamburger-icon::after {
-    transform: translateY(-8px) rotate(-45deg);
-}
-
 
 /* Pour les écrans plus petits */
 @media (max-width: 768px) {
     nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem 1rem;
-    }
-
-    .hamburger {
-        display: block; /* Show hamburger on mobile */
-    }
-
-    .nav-links {
-        display: none; /* Hide nav links by default on mobile */
-        flex-direction: column;
-        width: 100%;
-        position: absolute;
-        top: 100%; /* Position below the nav bar */
-        left: 0;
-        background-color: var(--primary-color);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        padding: 1rem 0;
-    }
-
-    .nav-links.active {
-        display: flex; /* Show nav links when active */
+        display: none;
     }
 
     nav a {
@@ -289,17 +189,33 @@ section, footer {
         text-align: left;
     }
 
-    #interventions ul {
-        columns: 1;
-        -webkit-columns: 1;
-        -moz-columns: 1;
-    }
-
-    header h1 {
-        font-size: 2rem;
-    }
-
     section {
         padding: 1.5rem;
     }
 }
+
+@media (min-width: 769px) {
+    #interventions ul {
+        column-count: 2;
+        column-gap: 2rem;
+    }
+}
+
+.cta-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 1rem;
+    transition: background-color 0.3s, transform 0.3s;
+    text-align: center;
+}
+
+.cta-button:hover {
+    background-color: #5a7d1a; /* A slightly darker shade of the primary color */
+    transform: translateY(-2px);
+}
+
